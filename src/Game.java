@@ -6,7 +6,8 @@ import java.awt.image.BufferStrategy;
 
 public class Game extends Canvas implements Runnable, KeyListener {
 
-    public static int WIDTH = 480, HEIGHT = 480;
+    public static int WIDTH = 640, HEIGHT = 480;
+    public static int SCALE = 3;
     public Player player;
     public World world;
 
@@ -33,7 +34,7 @@ public class Game extends Canvas implements Runnable, KeyListener {
         Graphics g = bs.getDrawGraphics();
 
         g.setColor(new Color(252,216,168));
-        g.fillRect(0, 0, WIDTH, HEIGHT);
+        g.fillRect(0, 0, WIDTH*SCALE, HEIGHT*SCALE);
 
         player.render(g);
 
@@ -84,6 +85,9 @@ public class Game extends Canvas implements Runnable, KeyListener {
             player.right = true;
         } else if (e.getKeyCode() == KeyEvent.VK_LEFT) {
             player.left = true;
+        }
+        if(e.getKeyCode() == KeyEvent.VK_Z){
+            player.shoot =true;
         }
         if(e.getKeyCode() == KeyEvent.VK_UP){
             player.up = true;

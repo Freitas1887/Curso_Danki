@@ -5,7 +5,7 @@ import java.io.IOException;
 public class Spritesheet {
 
     public static  BufferedImage spritesheet;
-    public static BufferedImage player_font;
+    public static BufferedImage[] player_font;
     public static BufferedImage tileWall;
 
     public Spritesheet(){
@@ -14,7 +14,11 @@ public class Spritesheet {
         }catch (IOException e){
             e.printStackTrace();
         }
-        player_font = Spritesheet.getSprite(0, 11, 16, 16);
+        player_font = new BufferedImage[2];
+
+
+        player_font[0] = Spritesheet.getSprite(0,11, 16, 16);
+        player_font[1] = Spritesheet.getSprite(16, 11, 16, 16);
         tileWall = Spritesheet.getSprite(307, 154, 16, 16);
 
     }
