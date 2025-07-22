@@ -3,13 +3,16 @@ import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.image.BufferStrategy;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Game extends Canvas implements Runnable, KeyListener {
 
     public static int WIDTH = 640, HEIGHT = 480;
     public static int SCALE = 3;
-    public Player player;
+    public static Player player;
     public World world;
+    public List<Inimigo> inimigos = new ArrayList<Inimigo>();
 
     public Game(){
         this.addKeyListener(this);
@@ -18,11 +21,18 @@ public class Game extends Canvas implements Runnable, KeyListener {
         new Spritesheet();
         player = new Player(32,32);
         world = new World();
+
+        inimigos.add(new Inimigo(32,32));
+        inimigos.add(new Inimigo(32,64));
     }
 
     public void tick(){
         player.tick();
+        for(int i = 0; i < inimigos.size(); i++){
+            inimigos.get(i).tick();
+        }
     }
+
 
     public void render(){
         BufferStrategy bs = this.getBufferStrategy();
@@ -37,7 +47,9 @@ public class Game extends Canvas implements Runnable, KeyListener {
         g.fillRect(0, 0, WIDTH*SCALE, HEIGHT*SCALE);
 
         player.render(g);
-
+        for(int i = 0; i < inimigos.size(); i++){
+            inimigos.get(i).render(g);
+        }
         world.render(g);
 
         bs.show();
